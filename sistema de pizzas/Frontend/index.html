@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery de Pizzas - Sistema de Pedidos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-pizza-slice"></i> Delivery de Pizzas</h1>
+            <p>Sistema de Pedidos com Árvore Binária</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="novo-pedido">Novo Pedido</button>
+            <button class="tab-btn" data-tab="clientes">Clientes</button>
+            <button class="tab-btn" data-tab="todos-pedidos">Todos Pedidos</button>
+            <button class="tab-btn" data-tab="estatisticas">Estatísticas</button>
+        </div>
+
+        <div class="tab-content active" id="novo-pedido">
+            <h2><i class="fas fa-plus-circle"></i> Novo Pedido</h2>
+            <form id="pedido-form">
+                <div class="form-group">
+                    <label for="nome">Nome do Cliente:</label>
+                    <input type="text" id="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="sabor">Sabor da Pizza:</label>
+                    <input type="text" id="sabor" required>
+                </div>
+                <div class="form-group">
+                    <label for="endereco">Bairro de Entrega:</label>
+                    <select id="endereco" required>
+                        <option value="">Selecione...</option>
+                        <option value="asa norte">Asa Norte</option>
+                        <option value="asa sul">Asa Sul</option>
+                        <option value="lago norte">Lago Norte</option>
+                        <option value="lago sul">Lago Sul</option>
+                        <option value="sudoeste">Sudoeste</option>
+                        <option value="cruzeiro">Cruzeiro</option>
+                        <option value="noroeste">Noroeste</option>
+                        <option value="águas claras">Águas Claras</option>
+                        <option value="taguatinga">Taguatinga</option>
+                        <option value="samambaia">Samambaia</option>
+                        <option value="ceilândia">Ceilândia</option>
+                        <option value="gama">Gama</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="tipo-pedido">Tipo de Pedido:</label>
+                    <select id="tipo-pedido" required>
+                        <option value="padrao">Padrão (R$35,00)</option>
+                        <option value="especial">Especial (R$45,00 + extras)</option>
+                    </select>
+                </div>
+
+                <div id="ingredientes-extras" style="display: none;">
+                    <label>Ingredientes Extras (R$2,50 cada):</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="ingrediente" value="bacon"> Bacon</label>
+                        <label><input type="checkbox" name="ingrediente" value="cheddar"> Cheddar</label>
+                        <label><input type="checkbox" name="ingrediente" value="catupiry"> Catupiry</label>
+                        <label><input type="checkbox" name="ingrediente" value="azeitona"> Azeitona</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn">
+                    <i class="fas fa-check"></i> Adicionar Pedido
+                </button>
+            </form>
+            <div id="pedido-result" class="result"></div>
+        </div>
+
+        <div class="tab-content" id="clientes">
+            <h2><i class="fas fa-users"></i> Clientes e Pedidos</h2>
+            <div class="search-box">
+                <input type="text" id="cliente-search" placeholder="Buscar cliente...">
+                <button id="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            <div id="clientes-list" class="tree-view"></div>
+        </div>
+
+        <div class="tab-content" id="todos-pedidos">
+            <h2><i class="fas fa-list-ol"></i> Todos os Pedidos (Árvore)</h2>
+            <div class="controls">
+                <button id="em-ordem-btn" class="btn small">Em Ordem</button>
+                <button id="pre-ordem-btn" class="btn small">Pré-Ordem</button>
+                <button id="pos-ordem-btn" class="btn small">Pós-Ordem</button>
+            </div>
+            <div id="pedidos-list" class="tree-view"></div>
+        </div>
+
+        <div class="tab-content" id="estatisticas">
+            <h2><i class="fas fa-chart-bar"></i> Estatísticas</h2>
+            <div id="stats-container">
+                <div class="stats-card">
+                    <h3>Clientes</h3>
+                    <div id="clientes-stats"></div>
+                </div>
+                <div class="stats-card">
+                    <h3>Pedidos</h3>
+                    <div id="pedidos-stats"></div>
+                </div>
+                <div class="stats-card">
+                    <h3>Tempos</h3>
+                    <div id="tempos-stats"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
