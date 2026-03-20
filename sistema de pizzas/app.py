@@ -5,7 +5,6 @@ import json
 app = Flask(__name__)
 pizzaria = Pizzaria()
 
-# === Factory Method ===
 class PedidoFactory:
     @staticmethod
     def criar_pedido(tipo, nome, sabor, endereco, tempo, extras=None):
