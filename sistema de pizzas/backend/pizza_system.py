@@ -1,13 +1,9 @@
-# Atualizado: pizza_system.py com melhorias completas
-
 import sqlite3
 from abc import ABC, abstractmethod
 
-# Conexão com banco SQLite
 conn = sqlite3.connect("pizza_tree.db")
 cursor = conn.cursor()
 
-# Tabelas
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS clientes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -28,7 +24,6 @@ CREATE TABLE IF NOT EXISTS pedidos (
 
 conn.commit()
 
-# === HERANÇA PARA TIPOS DE PEDIDO ===
 class PedidoBase:
     def __init__(self, sabor, endereco, tempo_entrega, cliente_nome):
         self.sabor = sabor
@@ -62,7 +57,6 @@ class PedidoEspecial(PedidoBase):
         return 45.00 + (len(self.ingredientes_extras) * 2.50)
 
 
-# === ÁRVORE DE PEDIDOS ===
 class NoPedido:
     def __init__(self, pedido):
         self.pedido = pedido
@@ -149,8 +143,6 @@ class ArvorePedidos:
                 total += pedido.calcular_preco()
         return total
 
-
-# === ENCAPSULAMENTO MELHORADO PARA CLIENTES ===
 class Cliente:
     def __init__(self, nome):
         self.__nome = nome
@@ -172,8 +164,6 @@ class Cliente:
     def total_gasto(self):
         return self.__pedidos.calcular_total_pedidos()
 
-
-# === CLASSE ABSTRATA PARA ESTATÍSTICAS ===
 class Estatisticas(ABC):
     @abstractmethod
     def gerar_relatorio(self):
@@ -202,8 +192,6 @@ class EstatisticasPizzaria(Estatisticas):
     def _calcular_faturamento(self):
         return self.pizzaria.todos_pedidos.calcular_total_pedidos()
 
-
-# === CLASSE PIZZARIA ===
 class Pizzaria:
     def __init__(self):
         self.clientes = {}
@@ -292,7 +280,6 @@ class Pizzaria:
         print(f"Faturamento total: R${relatorio['faturamento_total']:.2f}")
 
 
-# === INTERFACE ===
 pizzaria = Pizzaria()
 
 cursor.execute("SELECT c.nome, p.sabor, p.endereco, p.tempo_entrega FROM clientes c JOIN pedidos p ON c.id = p.cliente_id")
